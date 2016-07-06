@@ -18,6 +18,13 @@ describe('markdown-link-extractor', function () {
         expect(links[0]).to.be('http://www.example.com');
     });
 
+    it('should extract an image link in a ![tag](http://example.com/image.jpg)', function () {
+        var links = markdownLinkExtractor('![example](http://www.example.com/image.jpg)');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('http://www.example.com/image.jpg');
+    });
+
     it('should extract a bare link http://example.com', function () {
         var links = markdownLinkExtractor('This is a link: http://www.example.com');
         expect(links).to.be.an('array');

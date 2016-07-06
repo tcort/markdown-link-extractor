@@ -10,6 +10,10 @@ module.exports = function markdownLinkExtractor(markdown) {
         links.push(href);
 	return marked.Renderer.prototype.link.apply(this, arguments);
     };
+    renderer.image = function (href, title, text) {
+        links.push(href);
+	return marked.Renderer.prototype.image.apply(this, arguments);
+    };
     marked(markdown, { renderer: renderer });
 
     return links;
