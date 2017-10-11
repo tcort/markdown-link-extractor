@@ -8,11 +8,11 @@ module.exports = function markdownLinkExtractor(markdown) {
     var renderer = new marked.Renderer();
     renderer.link = function (href, title, text) {
         links.push(href);
-	return marked.Renderer.prototype.link.apply(this, arguments);
+        return marked.Renderer.prototype.link.apply(this, arguments);
     };
     renderer.image = function (href, title, text) {
         links.push(href);
-	return marked.Renderer.prototype.image.apply(this, arguments);
+        return marked.Renderer.prototype.image.apply(this, arguments);
     };
     marked(markdown, { renderer: renderer });
 
