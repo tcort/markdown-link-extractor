@@ -25,11 +25,11 @@
   },
   "homepage": "https://github.com/tcort/markdown-link-extractor",
   "dependencies": {
-    "marked": "^0.3.6"
+    "marked": "^0.3.9"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^4.0.1",
+    "mocha": "^4.1.0",
     "jshint": "^2.9.5"
   },
   "jshintConfig": {
