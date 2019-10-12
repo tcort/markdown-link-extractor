@@ -3,7 +3,7 @@
 var marked = require('marked');
 
 module.exports = function markdownLinkExtractor(markdown) {
-    var links = [];
+    var data = [];
 
     var renderer = new marked.Renderer();
 
@@ -15,14 +15,24 @@ module.exports = function markdownLinkExtractor(markdown) {
     marked.InlineLexer.rules.breaks.link = linkWithImageSizeSupport;
     
     renderer.link = function (href, title, text) {
-        links.push(href);
+        var myLink = {
+            "title": title,
+            "text": text,
+            "link": href
+          }
+        data.push(myLink); // Return More Data
     };
     renderer.image = function (href, title, text) {
         // Remove image size at the end, e.g. ' =20%x50'
         href = href.replace(/ =\d*%?x\d*%?$/, "");
-        links.push(href);
+        var myLink = {
+            "title": title,
+            "text": text,
+            "link": href
+          }
+        data.push(myLink); // Return More Data
     };
     marked(markdown, { renderer: renderer });
 
-    return links;
+    return data;
 };

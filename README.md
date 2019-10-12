@@ -16,7 +16,7 @@ Parameters:
 
 Returns:
 
-* an array containing the URLs from the links found.
+* an array of objects containing the URLs from the links found.
 
 ## Examples
 
@@ -27,10 +27,18 @@ Returns:
 
     var markdown = fs.readFileSync('README.md').toString();
 
-    var links = markdownLinkExtractor(markdown);
+    var linkData = markdownLinkExtractor(markdown);
 
-    links.forEach(function (link) {
-        console.log(link);
+    linkData.forEach(function (data) {
+        console.log(data);
+
+        /* Response
+        [ 
+            {title: "Section 1", link: "#section1", text: '...'},   
+            {title: "Section 2", link: "#section2", text: '...'},   
+            {title: "Section 3", link: "#section3", text: '...'},   
+        ]
+        */
     });
 
 ## Testing
