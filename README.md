@@ -3,9 +3,9 @@
 Extracts links from markdown texts.
 
 ## Installation
-
-    npm install --save markdown-link-extractor
-
+```bash
+$ npm install --save markdown-link-extractor
+```
 ## API
 
 ### markdownLinkExtractor(markdown)
@@ -20,19 +20,18 @@ Returns:
 
 ## Examples
 
-    "use strict";
+```js
+const { readFileSync } = require('fs');
+const markdownLinkExtractor = require('markdown-link-extractor');
 
-    var fs = require('fs');
-    var markdownLinkExtractor = require('markdown-link-extractor');
+const markdown = readFileSync('README.md', {encoding: 'utf8'});
 
-    var markdown = fs.readFileSync('README.md').toString();
+const links = markdownLinkExtractor(markdown);
 
-    var links = markdownLinkExtractor(markdown);
-
-    links.forEach(function (link) {
-        console.log(link);
-    });
-
+links.forEach(link => {
+  console.log(link);
+});
+```
 ## Testing
 
     npm test
