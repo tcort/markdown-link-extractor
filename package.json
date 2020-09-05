@@ -1,6 +1,6 @@
 {
   "name": "markdown-link-extractor",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "extracts links from markdown texts",
   "main": "index.js",
   "scripts": {
