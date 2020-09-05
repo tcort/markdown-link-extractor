@@ -39,6 +39,14 @@ describe('markdown-link-extractor', function () {
         expect(links[0]).to.be('foo/image.jpg');
     });
 
+    it('should extract two image links', function () {
+        var links = markdownLinkExtractor('![img](http://www.example.test/hello.jpg) ![img](hello.jpg)');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(2);
+        expect(links[0]).to.be('http://www.example.test/hello.jpg');
+        expect(links[1]).to.be('hello.jpg');
+    });
+
     it('should extract an image link in a ![tag](foo/image.jpg =20%x50)', function () {
         var links = markdownLinkExtractor('![example](foo/image.jpg =20%x50)');
         expect(links).to.be.an('array');
