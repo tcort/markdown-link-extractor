@@ -1,28 +1,40 @@
 'use strict';
 
-var marked = require('marked');
+const marked = require('marked');
 
 module.exports = function markdownLinkExtractor(markdown) {
-    var links = [];
-
-    var renderer = new marked.Renderer();
+    const links = [];
 
     // Taken from https://github.com/markedjs/marked/issues/1279
-    var linkWithImageSizeSupport = /^!?\[((?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
+    // removed ? after first ! so that it only matches images.
+    const image = /^!\[((?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
 
-    marked.InlineLexer.rules.normal.link = linkWithImageSizeSupport;
-    marked.InlineLexer.rules.gfm.link = linkWithImageSizeSupport;
-    marked.InlineLexer.rules.breaks.link = linkWithImageSizeSupport;
-    
-    renderer.link = function (href, title, text) {
-        links.push(href);
+    const tokenizer = {
+        link(src) {
+            const match = src.match(image);
+            if (match) {
+                return {
+                    type: 'image',
+                    raw: src,
+                    href: match[2] ? match[2].replace(/ =\d*%?x\d*%?$/, "") : null,
+                    title: match[3] ? match[3] : null,
+                    text: match[1] ? match[1] : null,
+                };
+            }
+            return false;
+        }
     };
-    renderer.image = function (href, title, text) {
-        // Remove image size at the end, e.g. ' =20%x50'
-        href = href.replace(/ =\d*%?x\d*%?$/, "");
-        links.push(href);
+
+    const walkTokens = (token) => {
+        if (token.type === 'link') {
+            links.push(token.href);
+        } else if (token.type === 'image') {
+            links.push(token.href);
+        }
     };
-    marked(markdown, { renderer: renderer });
+
+    marked.use({ tokenizer, walkTokens });
+    marked(markdown);
 
     return links;
 };
