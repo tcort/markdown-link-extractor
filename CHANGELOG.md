@@ -1,6 +1,6 @@
 # Changes
 
-## Version 1.2.5
+## Version 1.2.6
 
 * Don't mangle email addresses. Fixes tcort/markdown-link-check#86
 
