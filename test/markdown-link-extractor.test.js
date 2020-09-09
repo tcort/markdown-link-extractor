@@ -69,4 +69,11 @@ describe('markdown-link-extractor', function () {
         expect(links[1]).to.be('http://www.example.com/works');
     });
 
+    it('should extract mailto links', function () {
+        var links = markdownLinkExtractor('<email@example.com>');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('mailto:email@example.com');
+    });
+
 });
