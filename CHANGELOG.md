@@ -2,6 +2,10 @@
 
 ## Version 1.2.5
 
+* Don't mangle email addresses. Fixes tcort/markdown-link-check#86
+
+## Version 1.2.5
+
 * fix missing `$` at end of regex which lead to some links not being extracted.
 
 ## Version 1.2.4

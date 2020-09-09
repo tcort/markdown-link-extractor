@@ -33,6 +33,9 @@ module.exports = function markdownLinkExtractor(markdown) {
         }
     };
 
+    marked.setOptions({
+        mangle: false, // don't escape autolinked email address with HTML character references.
+    });
     marked.use({ tokenizer, walkTokens });
     marked(markdown);
 

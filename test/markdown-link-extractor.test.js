@@ -18,6 +18,13 @@ describe('markdown-link-extractor', function () {
         expect(links[0]).to.be('http://www.example.com');
     });
 
+    it('should extract mailto: link from <test@example.com>', function () {
+        var links = markdownLinkExtractor('<test@example.com>)');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('mailto:test@example.com');
+    });
+
     it('should extract a link in a with escaped braces [tag](http://example.com\(1\))', function () {
         var links = markdownLinkExtractor('[XMLHttpRequest](http://msdn.microsoft.com/library/ie/ms535874\\(v=vs.85\\).aspx)');
         expect(links).to.be.an('array');
