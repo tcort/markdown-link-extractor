@@ -29,7 +29,7 @@ module.exports = function markdownLinkExtractor(markdown) {
         if (token.type === 'link') {
             links.push(token.href);
         } else if (token.type === 'image') {
-            links.push(token.href);
+            links.push([token.href, token.text]);
         }
     };
 
