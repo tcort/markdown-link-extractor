@@ -1,5 +1,10 @@
 # Changes
 
+## Version 1.3.0
+
+* extended output mode
+* update dependencies
+
 ## Version 1.2.7
 
 * update dependencies.
