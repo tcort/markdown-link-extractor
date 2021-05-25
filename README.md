@@ -38,7 +38,7 @@ details.forEach(detail => console.log(detail));
 
 Extended output format:
 
-```json
+```js
 { type: 'link',
   raw:
    '[LICENSE.md](https://github.com/tcort/markdown-link-extractor/blob/master/LICENSE.md)',
