@@ -2,7 +2,7 @@
 
 const marked = require('marked');
 
-module.exports = function markdownLinkExtractor(markdown) {
+module.exports = function markdownLinkExtractor(markdown, extended = false) {
     const links = [];
 
     // Taken from https://github.com/markedjs/marked/issues/1279
@@ -26,10 +26,8 @@ module.exports = function markdownLinkExtractor(markdown) {
     };
 
     const walkTokens = (token) => {
-        if (token.type === 'link') {
-            links.push(token.href);
-        } else if (token.type === 'image') {
-            links.push(token.href);
+        if (token.type === 'link' || token.type === 'image') {
+            links.push(extended ? token : token.href);
         }
     };
 

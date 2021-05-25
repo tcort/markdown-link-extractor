@@ -76,4 +76,26 @@ describe('markdown-link-extractor', function () {
         expect(links[1]).to.be('http://www.example.com/works');
     });
 
+    it('should return full objects in extended mode', function () {
+        var links = markdownLinkExtractor('This is an [example](http://www.example.com). Hope it [works](http://www.example.com/works)', true);
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(2);
+        expect(links[0]).to.eql({
+            type: 'link',
+            raw: '[example](http://www.example.com)',
+            href: 'http://www.example.com',
+            title: null,
+            text: 'example',
+            tokens: [ { type: 'text', raw: 'example', text: 'example' } ],
+        });
+        expect(links[1]).to.eql({
+            type: 'link',
+            raw: '[works](http://www.example.com/works)',
+            href: 'http://www.example.com/works',
+            title: null,
+            text: 'works',
+            tokens: [ { type: 'text', raw: 'works', text: 'works' } ],
+        });
+    });
+
 });
