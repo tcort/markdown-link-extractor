@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/tcort/markdown-link-extractor",
   "dependencies": {
-    "marked": "^2.0.5"
+    "marked": "^4.0.10"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
