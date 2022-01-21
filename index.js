@@ -1,6 +1,6 @@
 'use strict';
 
-const marked = require('marked');
+const { marked } = require('marked');
 
 module.exports = function markdownLinkExtractor(markdown, extended = false) {
     const links = [];
