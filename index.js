@@ -4,6 +4,7 @@ const { marked } = require('marked');
 
 module.exports = function markdownLinkExtractor(markdown, extended = false) {
     const links = [];
+    const anchors = [];
 
     // Taken from https://github.com/markedjs/marked/issues/1279
     // removed ? after first ! so that it only matches images.
@@ -31,11 +32,17 @@ module.exports = function markdownLinkExtractor(markdown, extended = false) {
         }
     };
 
+    const renderer = {
+        heading(text, level, raw, slugger) {
+            anchors.push(`#${this.options.headerPrefix}${slugger.slug(raw)}`);
+        }
+    };
+
     marked.setOptions({
         mangle: false, // don't escape autolinked email address with HTML character references.
     });
-    marked.use({ tokenizer, walkTokens });
+    marked.use({ renderer, tokenizer, walkTokens });
     marked(markdown);
 
-    return links;
+    return { links, anchors };
 };

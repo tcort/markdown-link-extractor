@@ -1,5 +1,21 @@
 # Changes
 
+## Version 2.0.0
+
+* returns an object with links and anchors.
+
+Code that looked like this:
+
+```
+const links = markdownLinkExtractor(str);
+```
+
+Should change to this:
+
+```
+const { links } = markdownLinkExtractor(str);
+```
+
 ## Version 1.3.1
 
 * update dependencies

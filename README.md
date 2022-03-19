@@ -17,9 +17,11 @@ Parameters:
 
 Returns:
 
-* an array containing the URLs from the links found.
- - when `extended === false` array contains strings
- - when `extended === true` array contains objects
+* an object with the following properties:
+  * `.anchors`: an array of anchor tag strings (e.g. `[ "#foo", "#bar" ]`).
+  * `.links`: an array containing the URLs from the links found.
+    - when `extended === false` array contains strings
+    - when `extended === true` array contains objects
 
 ## Examples
 
@@ -29,11 +31,8 @@ const markdownLinkExtractor = require('markdown-link-extractor');
 
 const markdown = readFileSync('README.md', {encoding: 'utf8'});
 
-const links = markdownLinkExtractor(markdown, false);
+const { links } = markdownLinkExtractor(markdown);
 links.forEach(link => console.log(link));
-
-const details = markdownLinkExtractor(markdown, true);
-details.forEach(detail => console.log(detail));
 ```
 
 Extended output format:
@@ -47,6 +46,23 @@ Extended output format:
   title: null,
   text: 'LICENSE.md',
   tokens: [ { type: 'text', raw: 'LICENSE.md', text: 'LICENSE.md' } ] }
+```
+
+## Upgrading to v2.0.0
+
+The return value changed from an array to an object. The old return value is
+found at the property `links`.
+
+Code that looked like this:
+
+```
+const links = markdownLinkExtractor(str);
+```
+
+Should change to this:
+
+```
+const { links } = markdownLinkExtractor(str);
 ```
 
 ## Testing
