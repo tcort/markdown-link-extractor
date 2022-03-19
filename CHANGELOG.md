@@ -1,5 +1,9 @@
 # Changes
 
+## Version 2.0.1
+
+* upgrade dependencies
+
 ## Version 2.0.0
 
 * returns an object with links and anchors.
