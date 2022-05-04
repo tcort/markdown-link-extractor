@@ -25,6 +25,13 @@ describe('markdown-link-extractor', function () {
         expect(links[0]).to.be('http://www.example.com');
     });
 
+    it('should extract a hash link in [foobar](#foobar)', function () {
+        var links = markdownLinkExtractor('[foobar](#foobar)');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('#foobar');
+    });
+
     it('should extract a link from inline html <a href="http://foo.bar.test">foo</a>', function () {
         var links = markdownLinkExtractor('<a href="http://foo.bar.test">foo</a>');
         expect(links).to.be.an('array');
