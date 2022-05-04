@@ -11,11 +11,25 @@ describe('markdown-link-extractor', function () {
         expect(links).to.have.length(0);
     });
 
+    it('should extract links with emojis', function () {
+        var { links } = markdownLinkExtractor('**[📣 Foo!](https://www.example.com)**');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('https://www.example.com');
+    });
+
     it('should extract a link in a [tag](http://example.com)', function () {
         var { links } = markdownLinkExtractor('[example](http://www.example.com)');
         expect(links).to.be.an('array');
         expect(links).to.have.length(1);
         expect(links[0]).to.be('http://www.example.com');
+    });
+
+    it('should extract a link from inline html <a href="http://foo.bar.test">foo</a>', function () {
+        var { links } = markdownLinkExtractor('<a href="http://foo.bar.test">foo</a>');
+        expect(links).to.be.an('array');
+        expect(links).to.have.length(1);
+        expect(links[0]).to.be('http://foo.bar.test');
     });
 
     it('should extract mailto: link from <test@example.com>', function () {
@@ -54,13 +68,6 @@ describe('markdown-link-extractor', function () {
         expect(links[1]).to.be('hello.jpg');
     });
 
-    it('should extract an image link in a ![tag](foo/image.jpg =20%x50)', function () {
-        var { links } = markdownLinkExtractor('![example](foo/image.jpg =20%x50)');
-        expect(links).to.be.an('array');
-        expect(links).to.have.length(1);
-        expect(links[0]).to.be('foo/image.jpg');
-    });
-
     it('should extract a bare link http://example.com', function () {
         var { links } = markdownLinkExtractor('This is a link: http://www.example.com');
         expect(links).to.be.an('array');
@@ -76,27 +83,6 @@ describe('markdown-link-extractor', function () {
         expect(links[1]).to.be('http://www.example.com/works');
     });
 
-    it('should return full objects in extended mode', function () {
-        var { links } = markdownLinkExtractor('This is an [example](http://www.example.com). Hope it [works](http://www.example.com/works)', true);
-        expect(links).to.be.an('array');
-        expect(links).to.have.length(2);
-        expect(links[0]).to.eql({
-            type: 'link',
-            raw: '[example](http://www.example.com)',
-            href: 'http://www.example.com',
-            title: null,
-            text: 'example',
-            tokens: [ { type: 'text', raw: 'example', text: 'example' } ],
-        });
-        expect(links[1]).to.eql({
-            type: 'link',
-            raw: '[works](http://www.example.com/works)',
-            href: 'http://www.example.com/works',
-            title: null,
-            text: 'works',
-            tokens: [ { type: 'text', raw: 'works', text: 'works' } ],
-        });
-    });
     it('should collect anchor tags', function () {
         var { anchors } = markdownLinkExtractor('# foo\n# foo');
         expect(anchors).to.eql(['#foo','#foo-1']);

@@ -8,20 +8,17 @@ $ npm install --save markdown-link-extractor
 ```
 ## API
 
-### markdownLinkExtractor(markdown, extended=false)
+### markdownLinkExtractor(markdown)
 
 Parameters:
 
 * `markdown` text in markdown format.
-* `extended` enables extended output. Returns an object with metadata rather than the URL as a string (when `extended===false`)
 
 Returns:
 
 * an object with the following properties:
   * `.anchors`: an array of anchor tag strings (e.g. `[ "#foo", "#bar" ]`).
   * `.links`: an array containing the URLs from the links found.
-    - when `extended === false` array contains strings
-    - when `extended === true` array contains objects
 
 ## Examples
 
@@ -35,18 +32,10 @@ const { links } = markdownLinkExtractor(markdown);
 links.forEach(link => console.log(link));
 ```
 
-Extended output format:
+## Upgrading to v3.0.0
 
-```js
-{ type: 'link',
-  raw:
-   '[LICENSE.md](https://github.com/tcort/markdown-link-extractor/blob/master/LICENSE.md)',
-  href:
-   'https://github.com/tcort/markdown-link-extractor/blob/master/LICENSE.md',
-  title: null,
-  text: 'LICENSE.md',
-  tokens: [ { type: 'text', raw: 'LICENSE.md', text: 'LICENSE.md' } ] }
-```
+- extended mode no longer supported
+- embedded image size parameters in `![]()` no longer supported
 
 ## Upgrading to v2.0.0
 

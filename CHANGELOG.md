@@ -1,5 +1,13 @@
 # Changes
 
+## Version 3.0.0
+
+* add support for extracting links from inline HTML #7
+* fix issue parsing links with emoji #19
+* remove extended mode
+* remove support for embedded image size parameters due to performance issues. Reported by Shachar Menashe.
+* upgrade dependencies
+
 ## Version 2.0.1
 
 * upgrade dependencies
