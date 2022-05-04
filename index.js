@@ -8,7 +8,14 @@ module.exports = function markdownLinkExtractor(markdown, extended = false) {
 
     const renderer = {
         heading(text, level, raw, slugger) {
-            anchors.push(`#${this.options.headerPrefix}${slugger.slug(raw)}`);
+            if (this.options.headerIds) {
+                var id = this.options.headerPrefix + slugger.slug(raw);
+                anchors.push(`#${id}`);
+                return "<h" + level + " id=\"" + id + "\">" + text + "</h" + level + ">\n";
+            } // ignore IDs
+
+
+            return "<h" + level + ">" + text + "</h" + level + ">\n";
         }
     };
 
