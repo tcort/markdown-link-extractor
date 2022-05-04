@@ -16,9 +16,7 @@ Parameters:
 
 Returns:
 
-* an object with the following properties:
-  * `.anchors`: an array of anchor tag strings (e.g. `[ "#foo", "#bar" ]`).
-  * `.links`: an array containing the URLs from the links found.
+* an array containing the URLs from the links found.
 
 ## Examples
 
@@ -28,31 +26,30 @@ const markdownLinkExtractor = require('markdown-link-extractor');
 
 const markdown = readFileSync('README.md', {encoding: 'utf8'});
 
-const { links } = markdownLinkExtractor(markdown);
+const links = markdownLinkExtractor(markdown);
 links.forEach(link => console.log(link));
+```
+
+## Upgrading to v4.0.0
+
+- anchor link extraction no longer supported
+
+Code that looked like this:
+
+```
+const { links } = markdownLinkExtractor(str);
+```
+
+Should change to this:
+
+```
+const links = markdownLinkExtractor(str);
 ```
 
 ## Upgrading to v3.0.0
 
 - extended mode no longer supported
 - embedded image size parameters in `![]()` no longer supported
-
-## Upgrading to v2.0.0
-
-The return value changed from an array to an object. The old return value is
-found at the property `links`.
-
-Code that looked like this:
-
-```
-const links = markdownLinkExtractor(str);
-```
-
-Should change to this:
-
-```
-const { links } = markdownLinkExtractor(str);
-```
 
 ## Testing
 

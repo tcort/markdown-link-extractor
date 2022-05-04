@@ -1,5 +1,9 @@
 # Changes
 
+## Version 4.0.0
+
+* remove anchor extraction
+
 ## Version 3.0.0
 
 * add support for extracting links from inline HTML #7
