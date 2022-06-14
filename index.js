@@ -10,7 +10,10 @@ module.exports = function markdownLinkExtractor(markdown, extended = false) {
         heading(text, level, raw, slugger) {
             if (this.options.headerIds) {
                 var id = this.options.headerPrefix + slugger.slug(raw);
-                anchors.push(`#${id}`);
+                anchors.push('#' + encodeURIComponent(id));
+                if (id.indexOf('--') !== -1) {
+                    anchors.push('#' + encodeURIComponent(id.replace(/-+/g, '-')));
+                }
                 return "<h" + level + " id=\"" + id + "\">" + text + "</h" + level + ">\n";
             } // ignore IDs
 

@@ -1,5 +1,10 @@
 # Changes
 
+## version 3.1.0
+
+* url encode non ascii characters in anchors
+* support for gitlab anchors
+
 ## version 3.0.2
 
 * add missing dep
