@@ -2,8 +2,8 @@
 
 ## version 3.1.0
 
-* url encode non ascii characters in anchors
-* support for gitlab anchors
+* url encode non ascii characters in anchors @autoantwort #23
+* support for gitlab anchors @autoantwort #23
 
 ## version 3.0.2
 
