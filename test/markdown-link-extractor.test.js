@@ -88,4 +88,14 @@ describe('markdown-link-extractor', function () {
         expect(anchors).to.eql(['#foo','#foo-1']);
     });
 
+    it('should support gitlab anchor tags', function () {
+        var { anchors } = markdownLinkExtractor('# foo - bar');
+        expect(anchors).to.eql(['#foo---bar','#foo-bar']);
+    });
+
+    it('should encode umlaute in anchors', function () {
+        var { anchors } = markdownLinkExtractor('# Übersicht');
+        expect(anchors).to.eql(['#%C3%BCbersicht']);
+    });
+
 });
