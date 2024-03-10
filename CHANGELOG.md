@@ -1,5 +1,9 @@
 # Changes
 
+## Version 4.0.2
+
+* update dependencies
+
 ## Version 4.0.1
 
 * update dependencies
